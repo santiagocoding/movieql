@@ -1,45 +1,16 @@
-export let movies = [
-    {
-        id: "0",
-        name: "Nicolas",
-        score: 8
-    },
-    {
-        id: "1",
-        name: "Jkstar",
-        score: 10
-    },
-    {
-        id: "2",
-        name: "Rango",
-        score: 7
+import fetch from "node-fetch";
+
+const API_URL = "https://yts.am/api/v2/list_movies.json?"
+
+export const getMovies = (limit, rating) => {
+    let REQUEST_URL = API_URL;
+    if(limit > 0) {
+        REQUEST_URL += `limit=${limit}`;
     }
-];
-
-export const getMovies = () => movies;
-
-export const getById = id => {
-    const filteredMovies = movies.filter(Movie => String(id) === Movie.id);
-    return filteredMovies[0];
-}
-
-export const deleteMovie = (id) => {
-    const cleanedMovies = movies.filter(Movie => Movie.id !== String(id));
-    if(movies.length > cleanedMovies.length) {
-        movies = cleanedMovies;
-        return true;
-    } else {
-        return false;
+    if(rating > 0){
+        REQUEST_URL +=`&minimum_rating=${rating}`;
     }
+   return fetch(`${REQUEST_URL}`)
+        .then(res => res.json())
+        .then(json => json.data.movies);
 }
-
-export const addMovie = (name, score) => {
-    const newMovie = {
-        id: `${movies.length + 1}`,
-        name,
-        score
-    }
-    movies.push(newMovie);
-    return newMovie;
-}
-
