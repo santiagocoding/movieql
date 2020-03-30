@@ -1,0 +1,6 @@
+#yarn add graphql-yoga
+#yarn global add nodemon
+#yarn add babel-node -dev
+#yarn global add babel-cli
+#yarn global add babel-cli --ignore-engines
+#yarn add babel-cli babel-preset-env babel-preset-stage-3 --dev
